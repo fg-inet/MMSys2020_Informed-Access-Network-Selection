@@ -17,9 +17,9 @@ Related to this paper, we present the following artifacts:
 
 - Scripts that we used to run our experiments and to evaluate the results. These scripts are included in this repository.
 
-- A virtual machine on which both the Socket Intents prototype and the modified GPAC player are installed. This virtual machine is available [on Zenodo](https://doi.org/10.5281/zenodo.3732191), along with the dataset of the paper's evaluation.
+- A virtual machine on which both the Socket Intents prototype and the modified GPAC player are installed. This virtual machine is available on Zenodo, along with the dataset of the paper's evaluation: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3732191.svg)](https://doi.org/10.5281/zenodo.3732191)
 
-- The dataset on which the evaluation in the paper was based. The dataset is available [on Zenodo](https://doi.org/10.5281/zenodo.3732191), along with the virtual machine.
+- The dataset on which the evaluation in the paper was based. The dataset is available on Zenodo, along with the virtual machine: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3732191.svg)](https://doi.org/10.5281/zenodo.3732191)
 
 ## Steps to Reproduce
 
@@ -34,7 +34,7 @@ The virtual machine (VM) [available on Zenodo](https://doi.org/10.5281/zenodo.37
 
 **Prerequisites**: virtualbox or alternative software to run virtual machines
 
-1. Download the VM from [Zenodo](https://doi.org/10.5281/zenodo.3732191): **ians_video.vdi**
+1. Download the VM from [Zenodo](https://doi.org/10.5281/zenodo.3732191): **ians-video.ova**
 
 2. Boot the virtual machine and log in using the credentials: User name: *osboxes*, Password: *osboxes.org*
 
@@ -51,7 +51,7 @@ The virtual machine (VM) [available on Zenodo](https://doi.org/10.5281/zenodo.37
 ### Load Video Using Your Own Setup 
 
 **Prerequisites**:
-- A Linux machine (tested on Debian and Ubuntu) and being able to access a server hosting the video workload via at least two network interfaces (note that policy routing may be required)
+- A Linux machine (tested on Debian and Ubuntu) and being able to access a server hosting the video workload via at least two network interfaces. To use MPTCP, both this machine as well as the server hosting the workload need an MPTCP-enabled kernel, see [MultiPath TCP website](https://multipath-tcp.org/pmwiki.php/Users/HowToInstallMPTCP). Note that to correctly route outgoing packets over mutliple interfaces, you may need to configure policy routing.
 - build-essentials for building C code, Python3 (including packages scipy and matplotlib), R (including packages zoo, lattice, and viridis, plus dependencies), wget
 
 1. Build and install the Socket Intents prototype, see [README.md in the relevant repository](https://github.com/fg-inet/socket-intents). Create config files for each IANS policy you want to use as shown in the "Testing the Socket Intents Prototype" section.
