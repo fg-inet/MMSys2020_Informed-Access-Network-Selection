@@ -130,7 +130,9 @@ For example, notable files include:
 
 - **json/**: This directory contains input and output for the P.1203 model software. Files ending just with .json are the input files, with representations per segment and stalling events, while files ending with qoe.json contain the output of the P.1203 software, with audiovisual quality scores and the final score logged in qoe.log.
 
+## Supporting New Applications and Policies
 
+To add support for a new application, e.g., a different video player, or to write a new IANS policy, please refer to the [documentation](https://github.com/fg-inet/socket-intents#creating-a-new-policy) of the Socket Intents prototype.
 
 ## Acknowledgments
 
