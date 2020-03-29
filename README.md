@@ -54,17 +54,19 @@ The virtual machine (VM) [available on Zenodo](https://doi.org/10.5281/zenodo.37
 - A Linux machine (tested on Debian and Ubuntu) and being able to access a server hosting the video workload via at least two network interfaces. To use MPTCP, both this machine as well as the server hosting the workload need an MPTCP-enabled kernel, see [MultiPath TCP website](https://multipath-tcp.org/pmwiki.php/Users/HowToInstallMPTCP). Note that to correctly route outgoing packets over mutliple interfaces, you may need to configure policy routing.
 - The build-essentials package for building C code, Python3 (including packages scipy and matplotlib), R (including packages zoo, lattice, and viridis, plus dependencies), wget, and all dependencies of the software installed below.
 
-1. Build and install the Socket Intents prototype, see [README.md in the relevant repository](https://github.com/fg-inet/socket-intents). Create config files for each IANS policy you want to use as shown in the "Testing the Socket Intents Prototype" section.
+1. Check out the submodules of this repository, i.e, the Socket Intents prototype and the GPAC player, using ``git submodule init`` and ``git submodule update``.
 
-2. Build and install the modified GPAC player, see [repository](https://github.com/fg-inet/gpac)
+2. Build and install the Socket Intents prototype, see [README.md in the relevant repository](https://github.com/fg-inet/socket-intents). Create config files for each IANS policy you want to use as shown in the "Testing the Socket Intents Prototype" section.
 
-3. Download the [P.1203 repository](https://github.com/itu-p1203/itu-p1203) and the necessary dependencies, such as python3-matplotlib and python3-scipy. Create a symbolic link from the evaluation script directory, ``performance-test/video/eval``, to the directory called itu_p1203 within the P.1203 repository. Note: Make sure you do not create this link to the top-level directory of P.1203, but the subdirectory that contains the actual code. The script needs to be able to execute this code, which you can test, e.g., by invoking ``python3 -m itu_p1203 $FILE`` from the command line.
+3. Build and install the modified GPAC player, see [repository](https://github.com/fg-inet/gpac)
 
-4. From from the evaluation script directory, ``performance-test/video/eval``, create a symbolic link to your "data" directory. E.g. run the following in the directory: ``ln -s /home/yourname/data data``
+4. Download the [P.1203 repository](https://github.com/itu-p1203/itu-p1203) and the necessary dependencies, such as python3-matplotlib and python3-scipy. Create a symbolic link from the evaluation script directory, ``performance-test/video/eval``, to the directory called itu_p1203 within the P.1203 repository. Note: Make sure you do not create this link to the top-level directory of P.1203, but the subdirectory that contains the actual code. The script needs to be able to execute this code, which you can test, e.g., by invoking ``python3 -m itu_p1203 $FILE`` from the command line.
 
-5. From the top-level directory of this repo, create the following symbolic links: ``ln -s performance-test/video/load_stuff.sh load_stuff.sh`` and ``ln -s performance-test/video/stream_video.sh stream_video.sh`` and ``ln -s performance-test/video/run.sh run.sh``
+5. From from the evaluation script directory, ``performance-test/video/eval``, create a symbolic link to your "data" directory. E.g. run the following in the directory: ``ln -s /home/yourname/data data``
 
-6. Follow step 4 and further in the instuctions above for the VM.
+6. From the top-level directory of this repo, create the following symbolic links: ``ln -s performance-test/video/load_stuff.sh load_stuff.sh`` and ``ln -s performance-test/video/stream_video.sh stream_video.sh`` and ``ln -s performance-test/video/run.sh run.sh``
+
+7. Follow step 4 and further in the instuctions above for the VM.
 
 ### Analyze the Data
 

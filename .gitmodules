@@ -1,0 +1,6 @@
+[submodule "socket-intents"]
+	path = socket-intents
+	url = git@github.com:fg-inet/socket-intents.git
+[submodule "gpac"]
+	path = gpac
+	url = git@github.com:fg-inet/gpac.git
