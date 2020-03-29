@@ -26,7 +26,7 @@ Related to this paper, we present the following artifacts:
 This section describes how to load a video using the GPAC player and the Socket Intents prototype.
 
 Possible workloads are all videos using Dynamic Adaptive Streaming over HTTP (MPEG-DASH).
-In the paper, we use our own copy of the [DASH dataset of Uni Klagenfurt (MMSys 2014](http://www-itec.uni-klu.ac.at/ftp/datasets/DASHDataset2014/), i.e., "Big Buck Bunny" (BBB), "Red Bull" (RB), and "Valkaama" (V).
+In the paper, we use our own copy of the [DASH dataset of Uni Klagenfurt](http://www-itec.uni-klu.ac.at/ftp/datasets/DASHDataset2014/), i.e., "Big Buck Bunny" (BBB), "Red Bull" (RB), and "Valkaama" (V).
 
 ### Load Video Using the Virtual Machine
 
@@ -46,7 +46,7 @@ The virtual machine (VM) [available on Zenodo](https://doi.org/10.5281/zenodo.37
 
 6. Run ``./run.sh`` (or, if you want to use a different URL file, ``./run.sh default.conf $URLFILE``) using a different URL file) to run a test. By default, the test will only load the first 12 seconds and only use BOLA_O as ABR, as the test becomes very long otherwise. By default, the test will first load the video using only network interface 1, then network interface 2, then both using the Optimist policy, then both using the Pessimist policy. Note that for the RB video, it takes a long time until any non-blank frame is painted because the VM is very slow.
 
-7. Find the experiment output directories using ``cd data/; ls`` - each experiment run corresponds to one directory. Note that there See section "Analyze the Data" for instructions how to look at the data.
+7. Find the experiment output directories using ``cd data/; ls`` - each experiment run corresponds to one directory. See section "Analyze the Data" for instructions how to look at the data.
 
 ### Load Video Using Your Own Setup 
 
@@ -64,7 +64,11 @@ The virtual machine (VM) [available on Zenodo](https://doi.org/10.5281/zenodo.37
 
 5. From the top-level directory of this repo, create the following symbolic links: ``ln -s performance-test/video/load_stuff.sh load_stuff.sh`` and ``ln -s performance-test/video/stream_video.sh stream_video.sh`` and ``ln -s performance-test/video/run.sh run.sh``
 
+6. Follow step 4 and further in the instuctions above for the VM.
+
 ### Analyze the Data
+
+This section describes how to reproduce plots similar to the ones shown in the evaluation. The repository includes many more scripts, such as to produce time series of the logged data. Note that the MOS values (QoE) plotted here is computed using the P.1203 model.
 
 1. In performance-test/video/eval (either on the VM or on your own machine with this repository checked out), execute ``./stallings.R`` to compute stall events and durations. 
 
@@ -76,6 +80,17 @@ The virtual machine (VM) [available on Zenodo](https://doi.org/10.5281/zenodo.37
 
 Note: If you have multiple runs in data/, you may want to explicitly select the run(s) to plot or compute data for, e.g., to only compute data for the first run, you must execute ``./stallings.R 1 1`` (start with the first run and only compute data for this one run). To plot data for the first four runs, execute ``./plot_qoe.R 1 4``
 
+To compute and plot MOS values using the CQM model instead, do the following.
+
+Note: This required Matlab.
+
+1. (Similar to above) In performance-test/video/eval (either on the VM or on your own machine with this repository checked out), execute ``./stallings.R`` to compute stall events and durations. 
+
+2. Run ``prepare_cqm_data.py`` to compute the initial delays, segment quality arrays and arrays of stallings and stalling durations, which are required as input to the [CQM model](https://github.com/TranHuyen1191/CQM).
+
+3. Use the Matlab scripts ``read_my_csv.m`` and the scripts in the CQM repository to compute the actual QoE values.
+
+4. Run ``cqm_heatmap.R`` to produce heatmaps.
 
 ## Structure of the Dataset Used in the Paper
 
@@ -95,6 +110,7 @@ For easier handling, our dataset is split into the following files:
 - **variable_rb.tar.gz**: Results for the variable capacity scenarios when loading "Red Bull Playstreets",
 - **variable_v.tar.gz**: Results for the variable capacity scenarios when loading "Valkaama", and
 - **crosstraffic.tar.gz**: Results for the cross-traffic scenarios when loading all videos.
+- **cqm_data.tar.gz**: Data to compute the Mean Opinion Score (MOS) using the Cumulative Quality Model (CQM).
 
 Each .tar.gz file contains different the different runs as directories. Each directory name corresponds to one run, annonated with the date and time at which the experiment started and with the network conditions emulated in the network scenario for this particular run.
 
@@ -102,7 +118,9 @@ To analyze data, please refer to the section above called "Analyze the Data".
 
 ### Detailed look at log files
 
-Note that the directory contains lots of log files, and some more are produced using the analysis and plot scripts above. For example, notable files include:
+Note that each run directory contains lots of log files produced by the GPAC player, the Socket Intents prototype, and its IANS policies. Some more data is produced using the analysis and plot scripts above.
+
+For example, notable files include:
 
 - **initial_playout.log**: Timestamps for launching the player, loading the manifest file and initial segments, and starting the video playout for each video load. We use the following format: ``Video, IANS policy used, Scenario, Starttimestamp for this load, Timestamp when first Line of Code in player is executed, URL of the manifest file, Timestamp of when the terminal is loaded, Timestamp when starting the manifest file load, Timestamp when starting to load the initial segments, Timestamp when loading the initial segments ends, Timestamp when the player is initialized, and Timestamp when the actual playout starts``.
 
