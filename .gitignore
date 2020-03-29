@@ -1,0 +1,16 @@
+*.pyc
+*/log/*
+*.log
+*.Rdata
+*.RData
+*.Rhistory
+*.png
+*.pdf
+*.eps
+*.conf
+*/data
+qbss-test/plots/*
+qbss-test/data/*
+mam-metrics/data*
+web-timing/eval/data
+tcp-analysis/plots
