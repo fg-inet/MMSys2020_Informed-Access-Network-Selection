@@ -77,18 +77,6 @@ The virtual machine (VM) [available on Zenodo](https://doi.org/10.5281/zenodo.37
 Note: If you have multiple runs in data/, you may want to explicitly select the run(s) to plot or compute data for, e.g., to only compute data for the first run, you must execute ``./stallings.R 1 1`` (start with the first run and only compute data for this one run). To plot data for the first four runs, execute ``./plot_qoe.R 1 4``
 
 
-#### Detailed look at log files
-
-Note that the directory contains lots of log files, and some more are produced using the analysis and plot scripts above. For example, notable files include:
-
-- **initial_playout.log**: Timestamps for launching the player, loading the manifest file and initial segments, and starting the video playout for each video load. We use the following format: ``Video, IANS policy used, Scenario, Starttimestamp for this load, Timestamp when first Line of Code in player is executed, URL of the manifest file, Timestamp of when the terminal is loaded, Timestamp when starting the manifest file load, Timestamp when starting to load the initial segments, Timestamp when loading the initial segments ends, Timestamp when the player is initialized, and Timestamp when the actual playout starts``.
-
-- **abrdata_with_stallings.log**: For each loaded video segment, the start timestamp, end timestamp, buffer level, and whether there was a stalling event (=whether the video playback was interrupted) before playing out this segment. Format: ``Workload, Scenario, Starttimestamp for this load, Segment index, Adaptive BitRate algorithm used, Representation loaded for this segment, buffer level when loading this segment, estimated download rate prior to loading this segment, maximum buffer size, client, starttimestamp as UNX timestamp, run ID, IANS policy used, timestamp when segment load started, timestamp when segment load ended, download time for timestamp, by how many milliseconds this segment arrived early or late, when the segment was supposed to be there for uninterrupted playout, whether there was supposed to be any stalling event based on our script's computation (0 for No, 1 for Yes), computed stalling duration, whether there was actually any stalling based on frame paint time, actual stalling duration, which frame was stalled, and the file name of the manifest file``.
-
-- **qoe.log**: The Quality of Experience as Mean Opinion Score (MOS), computed using the P.1203 model, for each video load. We use the following format: ``Video, Scenario, Starttimestamp for this load, Adaptive BitRate algorithm used, IANS policy used, MOS``. qoe_120s .. qoe_210s contain the MOS values computed using the P.1203 model while only using the first 120s .. 210s of content.
-
-- **json/**: This directory contains input and output for the P.1203 model software. Files ending just with .json are the input files, with representations per segment and stalling events, while files ending with qoe.json contain the output of the P.1203 software, with audiovisual quality scores and the final score logged in qoe.log.
-
 ## Structure of the Dataset Used in the Paper
 
 The [dataset of the original experiment](https://doi.org/10.5281/zenodo.3732191) runs contains logs produced by the Socket Intents prototype and our modified GPAC player during experiments conducted between 20th June and 02nd September 2019.
@@ -111,6 +99,19 @@ For easier handling, our dataset is split into the following files:
 Each .tar.gz file contains different the different runs as directories. Each directory name corresponds to one run, annonated with the date and time at which the experiment started and with the network conditions emulated in the network scenario for this particular run.
 
 To analyze data, please refer to the section above called "Analyze the Data".
+
+### Detailed look at log files
+
+Note that the directory contains lots of log files, and some more are produced using the analysis and plot scripts above. For example, notable files include:
+
+- **initial_playout.log**: Timestamps for launching the player, loading the manifest file and initial segments, and starting the video playout for each video load. We use the following format: ``Video, IANS policy used, Scenario, Starttimestamp for this load, Timestamp when first Line of Code in player is executed, URL of the manifest file, Timestamp of when the terminal is loaded, Timestamp when starting the manifest file load, Timestamp when starting to load the initial segments, Timestamp when loading the initial segments ends, Timestamp when the player is initialized, and Timestamp when the actual playout starts``.
+
+- **abrdata_with_stallings.log**: For each loaded video segment, the start timestamp, end timestamp, buffer level, and whether there was a stalling event (=whether the video playback was interrupted) before playing out this segment. Format: ``Workload, Scenario, Starttimestamp for this load, Segment index, Adaptive BitRate algorithm used, Representation loaded for this segment, buffer level when loading this segment, estimated download rate prior to loading this segment, maximum buffer size, client, starttimestamp as UNX timestamp, run ID, IANS policy used, timestamp when segment load started, timestamp when segment load ended, download time for timestamp, by how many milliseconds this segment arrived early or late, when the segment was supposed to be there for uninterrupted playout, whether there was supposed to be any stalling event based on our script's computation (0 for No, 1 for Yes), computed stalling duration, whether there was actually any stalling based on frame paint time, actual stalling duration, which frame was stalled, and the file name of the manifest file``.
+
+- **qoe.log**: The Quality of Experience as Mean Opinion Score (MOS), computed using the P.1203 model, for each video load. We use the following format: ``Video, Scenario, Starttimestamp for this load, Adaptive BitRate algorithm used, IANS policy used, MOS``. qoe_120s .. qoe_210s contain the MOS values computed using the P.1203 model while only using the first 120s .. 210s of content.
+
+- **json/**: This directory contains input and output for the P.1203 model software. Files ending just with .json are the input files, with representations per segment and stalling events, while files ending with qoe.json contain the output of the P.1203 software, with audiovisual quality scores and the final score logged in qoe.log.
+
 
 
 ## Acknowledgments
