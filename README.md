@@ -72,15 +72,17 @@ The virtual machine (VM) [available on Zenodo](https://doi.org/10.5281/zenodo.37
 
 This section describes how to reproduce plots similar to the ones shown in the evaluation. The repository includes many more scripts, such as to produce time series of the logged data. Note that the MOS values (QoE) plotted here is computed using the P.1203 model.
 
-1. In performance-test/video/eval (either on the VM or on your own machine with this repository checked out), execute ``./stallings.R`` to compute stall events and durations. 
+**Prerequisite:** The dump_json.py script needs to know about all bitrates and representations of the workload that was downloaded. In the current repository, this is all bitrates and representations for the Red Bull and the Big Buck Bunny movie, as they are available publicly. In the paper, a subset of these representations and bitrates was used, see comments in dump_json.py.
 
-2. Run ``./dump_json.py`` to compute produce the QoE values using P.1203.
+1. In performance-test/video/eval (either on the VM or on your own machine with this repository checked out), execute ``./stallings.R 1 1`` to compute stall events and durations. This will compute stalling durations for the first run in your data/ directory. You can run the script for subsequent runs using, e.g., ``./stallings.R 2 1`` or ``./stallings.R 3 1``. If successful, the script will output the following message: *Output data with stallings to (RUN DIRECTORY)/abrdata_with_stallings.log*. This file is a prerequisite for running all of the following steps.
 
-3. Run ``./plot_qoe.R`` to produce barplots for the QoE.
+2. Run, e.g., ``./dump_json.py 2020-01-10T13:23`` to compute the QoE values using P.1203 for the first run in the data directory. Note, if you want to run this on your own test runs, the argument has to be different, as it matches the date and time of the directory name with the experiment data. If successful, this will output the MOS values computed by ITU-T P.1203 as "Final QoE:".
 
-4. Run ``./heatmap_video.R`` to produce heatmaps.
+3. Run ``./plot_qoe.R 1 1`` to produce barplots for the QoE for the first run. Use arguments ``2 1``, ``3 1``, etc for other runs.
 
-Note: If you have multiple runs in data/, you may want to explicitly select the run(s) to plot or compute data for, e.g., to only compute data for the first run, you must execute ``./stallings.R 1 1`` (start with the first run and only compute data for this one run). To plot data for the first four runs, execute ``./plot_qoe.R 1 4``
+4. Run ``./heatmap_video.R`` to produce heatmaps. By default, this produces a heatmap for all runs. Use, e.g., ``./heatmap_video.R 1 2`` to produce a heatmap of only the first two runs.
+
+About run selection: If you have multiple runs in data/, you may want to explicitly select the run(s) to plot or compute data for, e.g., to only compute data for the first run, you must execute ``./stallings.R 1 1`` (start with the first run and only compute data for this one run). To plot data for the first four runs, execute ``./plot_qoe.R 1 4``. The first number is the offset of the run to start from, the second number is the number of runs to be included.
 
 To compute and plot MOS values using the CQM model instead, do the following.
 
