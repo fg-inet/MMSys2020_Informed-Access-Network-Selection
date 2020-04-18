@@ -120,11 +120,12 @@ def output_json(data, initdata, run, printdata=True, log=False, overwrite=OVERWR
 
 	for startt in starttimes:
 		thisdata = filter_timings(data, startt, "starttimestamp")
-		thisinitdata = filter_timings(initdata, startt, "starttimestamp")[0]
-		thisworkload = ( "BigBuckBunny" if "BigBuckBunny" in thisdata[0]["page"] else "RedBull" if "RedBull" in thisdata[0]["page"] else "Valkaama" if "Valkaama" in thisdata[0]["page"] else "unknown" )
-		if len(thisdata) < 1 or len(thisinitdata) < 1:
+		thisinitdatafilter = filter_timings(initdata, startt, "starttimestamp")
+		if len(thisdata) < 1 or len(thisinitdatafilter) < 1:
 			logging.warn("No data for " + str(startt) + " -- skipping")
 			continue
+		thisinitdata = thisinitdatafilter[0]
+		thisworkload = ( "BigBuckBunny" if "BigBuckBunny" in thisdata[0]["page"] else "RedBull" if "RedBull" in thisdata[0]["page"] else "Valkaama" if "Valkaama" in thisdata[0]["page"] else "unknown" )
 		logging.debug("Processing data with starttime " + str(startt) + " (length " + str(len(thisdata)) + ")")
 		logging.debug(thisdata[0])
 		outputdict = { "I11" : { "segments": [ { "bitrate": 192, "codec": "aaclc", "duration": duration_to_use, "start": 0 } ] }, "I13": { "segments": [], "streamId": 1} , "IGen": { "displaySize": "1920x1080", "device": "pc", "viewingDistance": "150cm"}, "I23": { "streamId": 1, "stalling": [ [ 0, (float(thisinitdata["timestamp_start_playout"]) - float(thisinitdata["timestamp_start_mpd_load"]))/ 1000] ] }}
