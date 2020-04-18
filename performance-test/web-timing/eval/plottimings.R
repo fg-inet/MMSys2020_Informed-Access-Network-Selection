@@ -964,7 +964,7 @@ barplottimings <- function(timingdata, metrics="actual_time", mainlabel="Timings
 			par(xpd=T)
 			x_legend = 0
 			if (wheretoplotlegend == "topright") {
-				x_legend = 12
+				x_legend = length(plotdata) - 1
 			}
 			l = legend(x=x_legend, y=plot_legend_outside, inset=inset, legend=legendnames, fill=policycolors, cex=cex, bty=bty)
 		} else {
