@@ -17,9 +17,9 @@ Related to this paper, we present the following artifacts:
 
 - Scripts that we used to run our experiments and to evaluate the results. These scripts are included in this repository.
 
-- A virtual machine on which both the Socket Intents prototype and the modified GPAC player are installed. This virtual machine is available on Zenodo, along with the dataset of the paper's evaluation: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3732191.svg)](https://doi.org/10.5281/zenodo.3732191)
+- A virtual machine on which both the Socket Intents prototype and the modified GPAC player are installed. This virtual machine is available on Zenodo, along with the dataset of the paper's evaluation: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3756984.svg)](https://doi.org/10.5281/zenodo.3756984)
 
-- The dataset on which the evaluation in the paper was based. The dataset is available on Zenodo, along with the virtual machine: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3732191.svg)](https://doi.org/10.5281/zenodo.3732191)
+- The dataset on which the evaluation in the paper was based. The dataset is available on Zenodo, along with the virtual machine: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3756984.svg)](https://doi.org/10.5281/zenodo.3756984)
 
 ## Steps to Reproduce
 
@@ -30,11 +30,11 @@ In the paper, we use our own copy of the [DASH dataset of Uni Klagenfurt](http:/
 
 ### Load Video Using the Virtual Machine
 
-The virtual machine (VM) [available on Zenodo](https://doi.org/10.5281/zenodo.3732191) has both the Socket Intents prototype and the modified GPAC player installed. Furthermore, it contains the same experiment scripts that were used in the paper. The scripts were modified so that the virtual machine is able to run the software with a simple setup: The machine has two virtual network interfaces, and it can load a video using either single interface or both interfaces using IANS with the Optimist and Pessimist policy.
+The virtual machine (VM) [available on Zenodo](https://doi.org/10.5281/zenodo.3756984) has both the Socket Intents prototype and the modified GPAC player installed. Furthermore, it contains the same experiment scripts that were used in the paper. The scripts were modified so that the virtual machine is able to run the software with a simple setup: The machine has two virtual network interfaces, and it can load a video using either single interface or both interfaces using IANS with the Optimist and Pessimist policy.
 
 **Prerequisites**: virtualbox or alternative software to run virtual machines
 
-1. Download the VM from [Zenodo](https://doi.org/10.5281/zenodo.3732191): **ians-video.ova**
+1. Download the VM from [Zenodo](https://doi.org/10.5281/zenodo.3756984): **ians-video.ova**
 
 2. Boot the virtual machine and log in using the credentials: User name: *osboxes*, Password: *osboxes.org*
 
@@ -72,7 +72,8 @@ The virtual machine (VM) [available on Zenodo](https://doi.org/10.5281/zenodo.37
 
 This section describes how to reproduce plots similar to the ones shown in the evaluation. The repository includes many more scripts, such as to produce time series of the logged data. Note that the MOS values (QoE) plotted here is computed using the P.1203 model.
 
-**Prerequisite:** The dump_json.py script needs to know about all bitrates and representations of the workload that was downloaded. In the current repository, this is all bitrates and representations for the Red Bull and the Big Buck Bunny movie, as they are available publicly. In the paper, a subset of these representations and bitrates was used, see comments in dump_json.py.
+**Prerequisite:** The dump_json.py script needs to know about all bitrates and screen resolutions of the workload that was downloaded. In the current repository, this is all bitrates and screen resolutions for the Red Bull and the Big Buck Bunny movie, as they are available publicly. In the paper, a subset of these representations was used, see comments in dump_json.py.
+Before running the analysis, please double-check that dump_json.py has the correct resolutions and bitrates for your workload, which are stored in dictionaries called ``resolutions`` and ``bitrates``.
 
 1. In performance-test/video/eval (either on the VM or on your own machine with this repository checked out), execute ``./stallings.R 1 1`` to compute stall events and durations. This will compute stalling durations for the first run in your data/ directory. You can run the script for subsequent runs using, e.g., ``./stallings.R 2 1`` or ``./stallings.R 3 1``. If successful, the script will output the following message: *Output data with stallings to (RUN DIRECTORY)/abrdata_with_stallings.log*. This file is a prerequisite for running all of the following steps.
 
